@@ -1,0 +1,68 @@
+{
+  "kind": "build_request",
+  "title": "Integrate Stripe payment processing for order checkout",
+  "projectName": "Kodinar Bazaar",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-9",
+      "text": "Add Stripe payment integration to the backend: store a Stripe payment intent ID and payment status (pending, paid, failed) on each order record. Expose a backend function to create a payment intent for a given order total and return the client secret, and another to confirm/update payment status after successful payment.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-10",
+          "msg-12"
+        ],
+        "quotes": [
+          "I want them to pay from our platform so that we can get share from that payment as a profit",
+          "Yes please do that"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Order records include paymentStatus (pending | paid | failed) and stripePaymentIntentId fields.",
+        "A backend function createPaymentIntent(orderId) returns a Stripe client secret for the order total.",
+        "A backend function confirmPayment(orderId, paymentIntentId) updates the order's payment status to 'paid'.",
+        "Orders with paymentStatus 'pending' are not treated as completed until payment is confirmed."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Add a Stripe Checkout / payment step to the order flow on the frontend. After the user clicks 'Place Order' on the CartPage, display a payment form (using Stripe Elements) to collect card details and process payment before confirming the order. Show clear success and failure states. On success, navigate to the existing OrderConfirmationPage.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10",
+          "msg-12"
+        ],
+        "quotes": [
+          "I want them to pay from our platform so that we can get share from that payment as a profit",
+          "Yes please do that"
+        ]
+      },
+      "acceptanceCriteria": [
+        "CartPage 'Place Order' button initiates a Stripe payment flow instead of immediately confirming the order.",
+        "A payment modal or dedicated checkout page renders Stripe Elements for secure card entry.",
+        "On successful payment, the order is marked as paid in the backend and the user is redirected to OrderConfirmationPage.",
+        "On payment failure, an error message is displayed and the user can retry without losing their cart.",
+        "The platform's Stripe publishable key is used for the frontend Stripe Elements integration.",
+        "Loading and processing states are clearly communicated to the user during payment."
+      ]
+    }
+  ],
+  "constraints": [
+    "Use Stripe for payment processing — no other payment providers.",
+    "Do not expose secret Stripe keys on the frontend; only the publishable key may be used client-side.",
+    "Do not modify files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui.",
+    "Preserve existing order data model fields; only extend with new payment-related fields."
+  ],
+  "nonGoals": [
+    "Subscription or recurring billing.",
+    "Refund or dispute management UI.",
+    "Multiple payment methods beyond card (e.g. UPI, wallets) in this iteration.",
+    "Seller payout management."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

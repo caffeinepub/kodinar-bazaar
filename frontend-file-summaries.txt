@@ -1,0 +1,22 @@
+{
+  "frontend/src/index.css": "Global styles with warm Indian marketplace OKLCH color palette (saffron, turmeric, terracotta), Google Fonts import for Playfair Display and Inter, and custom utility classes for gradients and typography.",
+  "frontend/tailwind.config.js": "Extended Tailwind config with custom font families (Playfair Display, Inter), saffron/turmeric/terracotta/cream color tokens, warm box shadows, and all standard shadcn/ui tokens.",
+  "frontend/src/hooks/useQueries.ts": "All React Query hooks for the app — user profiles, products (CRUD), cart operations, orders, and Stripe payment integration (useIsStripeConfigured, useSetStripeConfiguration, useCreateCheckoutSession, useGetStripeSessionStatus).",
+  "frontend/src/components/LoginButton.tsx": "Login/logout button using Internet Identity with loading state, styled with saffron theme colors.",
+  "frontend/src/components/ProfileSetupModal.tsx": "First-login profile setup modal collecting name, contact, and buyer/seller role, calling saveCallerUserProfile on submit.",
+  "frontend/src/components/CartIcon.tsx": "Header cart icon with item count badge, fetching live cart data and navigating to /cart on click.",
+  "frontend/src/components/Header.tsx": "Sticky app header with Kodinar Bazaar branding, logo, navigation links, user profile display, cart icon, and mobile hamburger menu.",
+  "frontend/src/components/AccessDenied.tsx": "Reusable access denied screen shown to unauthorized users with a home navigation button.",
+  "frontend/src/components/ProductCard.tsx": "Product card displaying image, name, price in INR, category badge, stock status, and Add to Cart button with toast feedback.",
+  "frontend/src/components/ProductForm.tsx": "Reusable product form with image upload (ExternalBlob), upload progress bar, and all product fields for add/edit operations.",
+  "frontend/src/pages/HomePage.tsx": "Landing page with hero banner, feature highlights, category grid, and seller CTA — all navigate-to-products calls now pass `search: { category: undefined }` or `search: { category: cat.name }`.",
+  "frontend/src/pages/ProductsPage.tsx": "Product browsing page with real-time search, category sidebar filter, responsive product grid, and loading/empty states.",
+  "frontend/src/pages/ProductDetailPage.tsx": "Full product detail page with image, description, seller info, quantity selector, and Add to Cart / Buy Now buttons — all navigate-to-products calls updated to pass `search: { category: undefined }`.",
+  "frontend/src/pages/CartPage.tsx": "Shopping cart page with item list, quantity controls, line totals, and a checkout button that places the order then redirects to Stripe hosted checkout when Stripe is configured, or directly to order confirmation otherwise.",
+  "frontend/src/pages/OrderConfirmationPage.tsx": "Order confirmation page that fetches the full order by ID and displays status-aware UI (paid/pending/failed) with order details, payment status, timestamp, and navigation actions.",
+  "frontend/src/pages/SellerDashboardPage.tsx": "Seller-only dashboard with product stats, sortable product table, add/edit dialogs, mark out-of-stock, and delete with confirmation.",
+  "frontend/src/App.tsx": "Root app component with TanStack Router, all routes including new /payment-success and /payment-failure, Layout with Header/Footer, ProfileSetupModal, StripeSetupModal for admins, and ThemeProvider.",
+  "frontend/src/pages/PaymentSuccessPage.tsx": "Stripe payment success redirect page at /payment-success that reads the session_id from URL params, verifies payment status via the backend, and shows a success or failure message with navigation options.",
+  "frontend/src/pages/PaymentFailurePage.tsx": "Stripe payment cancellation/failure page at /payment-failure that explains the payment was not completed and offers navigation back to cart or products.",
+  "frontend/src/components/StripeSetupModal.tsx": "Admin-only modal dialog for configuring Stripe with a secret key and allowed countries list, shown automatically when an admin logs in and Stripe is not yet configured."
+}

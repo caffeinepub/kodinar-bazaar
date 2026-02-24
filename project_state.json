@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "E-commerce app specifically for the small town of Kodinar. The app will serve local buyers and sellers within the city.",
+  "architectural_notes": [
+    "Target audience: residents and local businesses in Kodinar, a small town"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-build-a-product-browsing-page-that-displays-all-available-kodinar-listings-in-a-grid-layout-with-product-image-name-price-category-badge-and-an-add-to-cart-button-include-a-category-filter-sidebar-and-a-search-bar-to-filter-products-by-name-or-keyword",
+      "title": "Build a product browsing page that displays all available Kodinar listings in a grid layout with product image, name, price, category badge, and an 'Add to Cart' button. Include a category filter sidebar and a search bar to filter products by name or keyword.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-product-detail-page-showing-full-product-info-name-description-price-stock-seller-name-a-quantity-selector-and-an-add-to-cart-buy-now-button",
+      "title": "Build a product detail page showing full product info (name, description, price, stock, seller name), a quantity selector, and an 'Add to Cart' / 'Buy Now' button.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-shopping-cart-accessible-from-a-persistent-cart-icon-in-the-header-the-cart-should-list-selected-items-allow-quantity-updates-and-removal-show-a-subtotal-and-include-a-place-order-button-that-submits-the-order-to-the-backend",
+      "title": "Implement a shopping cart accessible from a persistent cart icon in the header. The cart should list selected items, allow quantity updates and removal, show a subtotal, and include a 'Place Order' button that submits the order to the backend.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-seller-dashboard-page-accessible-after-registering-as-a-seller-where-sellers-can-add-new-product-listings-view-their-existing-listings-edit-product-details-and-mark-items-as-out-of-stock",
+      "title": "Create a Seller Dashboard page (accessible after registering as a seller) where sellers can add new product listings, view their existing listings, edit product details, and mark items as out of stock.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-user-registration-and-profile-page-where-visitors-can-sign-up-as-a-buyer-or-seller-by-providing-name-and-contact-info-display-current-user-role-and-name-in-the-header-once-registered",
+      "title": "Add a user registration and profile page where visitors can sign up as a buyer or seller by providing name and contact info. Display current user role and name in the header once registered.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-warm-vibrant-visual-theme-inspired-by-a-small-indian-town-marketplace-using-earthy-saffron-turmeric-yellow-and-deep-terracotta-as-the-primary-palette-with-clean-white-cards-and-a-bold-serif-influenced-heading-font-the-design-should-feel-lively-and-locally-rooted-with-a-prominent-kodinar-bazaar-brand-in-the-header-culturally-resonant-iconography-and-a-layout-that-prioritizes-product-discovery",
+      "title": "Apply a warm, vibrant visual theme inspired by a small Indian town marketplace — using earthy saffron, turmeric yellow, and deep terracotta as the primary palette, with clean white cards and a bold serif-influenced heading font. The design should feel lively and locally rooted, with a prominent 'Kodinar Bazaar' brand in the header, culturally resonant iconography, and a layout that prioritizes product discovery.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-use-generated-static-image-assets-for-the-homepage-hero-banner-and-app-logo-render-them-from-frontend-public-assets-generated",
+      "title": "Use generated static image assets for the homepage hero banner and app logo. Render them from frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-stripe-checkout-payment-step-to-the-order-flow-on-the-frontend-after-the-user-clicks-place-order-on-the-cartpage-display-a-payment-form-using-stripe-elements-to-collect-card-details-and-process-payment-before-confirming-the-order-show-clear-success-and-failure-states-on-success-navigate-to-the-existing-orderconfirmationpage",
+      "title": "Add a Stripe Checkout / payment step to the order flow on the frontend. After the user clicks 'Place Order' on the CartPage, display a payment form (using Stripe Elements) to collect card details and process payment before confirming the order. Show clear success and failure states. On success, navigate to the existing OrderConfirmationPage.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Local e-commerce platform for Kodinar city",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Create a backend data model and actor supporting: product listings (name, description, price, category, image URL, seller info, stock quantity, city=Kodinar), user profiles (name, contact, role: buyer/seller), and orders (buyer, items, total, status, timestamp). Expose CRUD operations for products, user registration, and order placement.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Integrate Stripe payment processing so customers can pay for orders directly on the platform, enabling the platform to collect a share of each transaction as profit.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add Stripe payment integration to the backend: store a Stripe payment intent ID and payment status (pending, paid, failed) on each order record. Expose a backend function to create a payment intent for a given order total and return the client secret, and another to confirm/update payment status after successful payment.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Kodinar Bazaar",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,71 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Integrate Stripe payment processing for order checkout",
+  "requirements": [
+    {
+      "id": "REQ-10",
+      "summary": "Add Stripe Checkout payment step to the order flow with card payment form, success/failure states, and navigation to OrderConfirmationPage on success",
+      "acceptanceCriteria": [
+        "CartPage 'Place Order' button initiates a Stripe payment flow instead of immediately confirming the order.",
+        "A payment modal or dedicated checkout page renders Stripe Elements for secure card entry.",
+        "On successful payment, the order is marked as paid in the backend and the user is redirected to OrderConfirmationPage.",
+        "On payment failure, an error message is displayed and the user can retry without losing their cart.",
+        "The platform's Stripe publishable key is used for the frontend Stripe Elements integration.",
+        "Loading and processing states are clearly communicated to the user during payment."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/package.json",
+          "operation": "modify",
+          "description": "Add @stripe/stripe-js and @stripe/react-stripe-js packages as dependencies to enable Stripe Elements integration for secure card payment collection."
+        },
+        {
+          "path": "frontend/src/hooks/useStripeCheckout.ts",
+          "operation": "create",
+          "description": "Create a React Query mutation hook that calls backend.createStripePaymentIntent with an orderId, returns the Stripe client secret, and handles errors. This hook will be used by the payment modal to initialize Stripe Elements."
+        },
+        {
+          "path": "frontend/src/hooks/useConfirmPayment.ts",
+          "operation": "create",
+          "description": "Create a mutation hook that calls backend.updatePaymentStatus to mark an order as paid after successful Stripe confirmation. Invalidates order queries on success."
+        },
+        {
+          "path": "frontend/src/components/StripePaymentModal.tsx",
+          "operation": "create",
+          "description": "Create a modal dialog component that wraps Stripe Elements (CardElement) for secure card entry. Accepts orderId, orderTotal, onSuccess, and onCancel props. Uses useStripeCheckout to fetch client secret, loads Stripe with Elements provider, handles card submission via stripe.confirmCardPayment, calls useConfirmPayment on success, and displays loading/error states. Shows a cancel button to close the modal without completing payment."
+        },
+        {
+          "path": "frontend/src/pages/CartPage.tsx",
+          "operation": "modify",
+          "description": "Modify the 'Place Order' button click handler to first call placeOrder (creating a pending order), then open the StripePaymentModal with the returned orderId and cart total. On payment success, close the modal and navigate to OrderConfirmationPage with the orderId. On cancel, keep the modal closed and allow retry. Remove direct navigation to confirmation; payment must complete first."
+        },
+        {
+          "path": "frontend/src/pages/OrderConfirmationPage.tsx",
+          "operation": "modify",
+          "description": "Update to accept an orderId via route params or query string, fetch the full Order details using getOrder backend function, and display order items, total, payment status, and timestamp. Show a loading state while fetching. If payment status is 'pending' or 'failed', display an appropriate message."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Update the route configuration to pass orderId to OrderConfirmationPage via route params (e.g., /order-confirmation/:orderId). Ensure CartPage remains at /cart and OrderConfirmationPage at /order-confirmation/:orderId."
+        },
+        {
+          "path": "frontend/src/pages/PaymentSuccessPage.tsx",
+          "operation": "create",
+          "description": "Create a success view component for the Stripe redirect flow (path /payment-success). Display a success message, retrieve sessionId from URL params using the urlParams utility, call backend.getStripeSessionStatus to verify payment, and show order details or a link back to orders. This page is for the Stripe component's checkout session redirect, not the new payment intent flow."
+        },
+        {
+          "path": "frontend/src/pages/PaymentFailurePage.tsx",
+          "operation": "create",
+          "description": "Create a failure view component for the Stripe redirect flow (path /payment-failure). Display an error message, explain payment was not completed, and offer navigation back to cart or products page. This page is for the Stripe component's checkout session redirect."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register two new routes: /payment-success to PaymentSuccessPage and /payment-failure to PaymentFailurePage for Stripe checkout session redirect handling (used by the Stripe component's createCheckoutSession flow, not the new payment intent flow)."
+        }
+      ]
+    }
+  ]
+}

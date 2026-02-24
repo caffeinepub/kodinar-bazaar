@@ -1,0 +1,31 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-add-a-stripe-checkout-payment-step-to-the-order-flow-on-the-frontend-after-the-user-clicks-place-order-on-the-cartpage-display-a-payment-form-using-stripe-elements-to-collect-card-details-and-process-payment-before-confirming-the-order-show-clear-success-and-failure-states-on-success-navigate-to-the-existing-orderconfirmationpage",
+      "featureTitle": "Add a Stripe Checkout / payment step to the order flow on the frontend. After the user clicks 'Place Order' on the CartPage, display a payment form (using Stripe Elements) to collect card details and process payment before confirming the order. Show clear success and failure states. On success, navigate to the existing OrderConfirmationPage.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/CartPage.tsx",
+        "frontend/src/pages/OrderConfirmationPage.tsx",
+        "frontend/src/pages/PaymentFailurePage.tsx",
+        "frontend/src/pages/PaymentSuccessPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "stripe@3.0.0",
+        "http-outcalls@3.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

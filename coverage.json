@@ -1,0 +1,74 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-24T11:39:12.026Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 2,
+    "implemented": 1,
+    "items": [
+      {
+        "id": "REQ-10",
+        "summary": "Add a Stripe Checkout / payment step to the order flow on the frontend. After the user clicks 'Place Order' on the CartPage, display a payment form (using Stripe Elements) to collect card details and process payment before confirming the order. Show clear success and failure states. On success, navigate to the existing OrderConfirmationPage.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/package.json",
+          "frontend/src/hooks/useStripeCheckout.ts",
+          "frontend/src/hooks/useConfirmPayment.ts",
+          "frontend/src/components/StripePaymentModal.tsx",
+          "frontend/src/pages/CartPage.tsx",
+          "frontend/src/pages/OrderConfirmationPage.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/pages/PaymentSuccessPage.tsx",
+          "frontend/src/pages/PaymentFailurePage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/CartPage.tsx",
+          "frontend/src/pages/OrderConfirmationPage.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/pages/PaymentSuccessPage.tsx",
+          "frontend/src/pages/PaymentFailurePage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-9",
+        "summary": "Add Stripe payment integration to the backend: store a Stripe payment intent ID and payment status (pending, paid, failed) on each order record. Expose a backend function to create a payment intent for a given order total and return the client secret, and another to confirm/update payment status after successful payment.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/http-outcalls/outcall.mo",
+    "backend/main.mo",
+    "backend/migration.mo",
+    "backend/stripe/stripe.mo",
+    "build-request.json",
+    "build-template/README.md",
+    "caffeine.lock.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/App.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/StripeSetupModal.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/CartPage.tsx",
+    "frontend/src/pages/OrderConfirmationPage.tsx",
+    "frontend/src/pages/PaymentFailurePage.tsx",
+    "frontend/src/pages/PaymentSuccessPage.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}
