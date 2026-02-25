@@ -22,7 +22,7 @@ export interface Product {
     description: string;
     seller: Principal;
     stock: bigint;
-    category: string;
+    category: Category;
     price: bigint;
 }
 export type OrderId = bigint;
@@ -87,6 +87,15 @@ export interface UserProfile {
     name: string;
     role: UserRole;
 }
+export enum Category {
+    bakedGoods = "bakedGoods",
+    seafood = "seafood",
+    nuts = "nuts",
+    fruits = "fruits",
+    beverages = "beverages",
+    vegetables = "vegetables",
+    dairy = "dairy"
+}
 export enum OrderStatus {
     pending = "pending",
     paid = "paid",
@@ -102,7 +111,7 @@ export enum UserRole__1 {
     guest = "guest"
 }
 export interface backendInterface {
-    addProduct(name: string, description: string, price: bigint, category: string, blob: ExternalBlob, stock: bigint): Promise<ProductId>;
+    addProduct(name: string, description: string, price: bigint, category: Category, blob: ExternalBlob, stock: bigint): Promise<ProductId>;
     addToCart(productId: ProductId, quantity: bigint): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole__1): Promise<void>;
     clearCart(): Promise<void>;
@@ -118,7 +127,7 @@ export interface backendInterface {
     getMyProducts(): Promise<Array<Product>>;
     getOrder(orderId: OrderId): Promise<Order | null>;
     getProduct(productId: ProductId): Promise<Product | null>;
-    getProductsByCategory(category: string): Promise<Array<Product>>;
+    getProductsByCategory(category: Category): Promise<Array<Product>>;
     getStripeSessionStatus(sessionId: string): Promise<StripeSessionStatus>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
@@ -130,5 +139,5 @@ export interface backendInterface {
     setStripeConfiguration(config: StripeConfiguration): Promise<void>;
     transform(input: TransformationInput): Promise<TransformationOutput>;
     updatePaymentStatus(orderId: OrderId, status: OrderStatus): Promise<void>;
-    updateProduct(productId: ProductId, name: string, description: string, price: bigint, category: string, blob: ExternalBlob, stock: bigint): Promise<void>;
+    updateProduct(productId: ProductId, name: string, description: string, price: bigint, category: Category, blob: ExternalBlob, stock: bigint): Promise<void>;
 }

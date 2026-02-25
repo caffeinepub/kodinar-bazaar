@@ -19,6 +19,15 @@ export const _CaffeineStorageRefillResult = IDL.Record({
   'success' : IDL.Opt(IDL.Bool),
   'topped_up_amount' : IDL.Opt(IDL.Nat),
 });
+export const Category = IDL.Variant({
+  'bakedGoods' : IDL.Null,
+  'seafood' : IDL.Null,
+  'nuts' : IDL.Null,
+  'fruits' : IDL.Null,
+  'beverages' : IDL.Null,
+  'vegetables' : IDL.Null,
+  'dairy' : IDL.Null,
+});
 export const ExternalBlob = IDL.Vec(IDL.Nat8);
 export const ProductId = IDL.Nat;
 export const UserRole__1 = IDL.Variant({
@@ -61,7 +70,7 @@ export const Product = IDL.Record({
   'description' : IDL.Text,
   'seller' : IDL.Principal,
   'stock' : IDL.Nat,
-  'category' : IDL.Text,
+  'category' : Category,
   'price' : IDL.Nat,
 });
 export const UserRole = IDL.Variant({
@@ -132,7 +141,7 @@ export const idlService = IDL.Service({
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
   'addProduct' : IDL.Func(
-      [IDL.Text, IDL.Text, IDL.Nat, IDL.Text, ExternalBlob, IDL.Nat],
+      [IDL.Text, IDL.Text, IDL.Nat, Category, ExternalBlob, IDL.Nat],
       [ProductId],
       [],
     ),
@@ -155,7 +164,7 @@ export const idlService = IDL.Service({
   'getMyProducts' : IDL.Func([], [IDL.Vec(Product)], ['query']),
   'getOrder' : IDL.Func([OrderId], [IDL.Opt(Order)], ['query']),
   'getProduct' : IDL.Func([ProductId], [IDL.Opt(Product)], ['query']),
-  'getProductsByCategory' : IDL.Func([IDL.Text], [IDL.Vec(Product)], ['query']),
+  'getProductsByCategory' : IDL.Func([Category], [IDL.Vec(Product)], ['query']),
   'getStripeSessionStatus' : IDL.Func([IDL.Text], [StripeSessionStatus], []),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
@@ -176,7 +185,7 @@ export const idlService = IDL.Service({
     ),
   'updatePaymentStatus' : IDL.Func([OrderId, OrderStatus], [], []),
   'updateProduct' : IDL.Func(
-      [ProductId, IDL.Text, IDL.Text, IDL.Nat, IDL.Text, ExternalBlob, IDL.Nat],
+      [ProductId, IDL.Text, IDL.Text, IDL.Nat, Category, ExternalBlob, IDL.Nat],
       [],
       [],
     ),
@@ -195,6 +204,15 @@ export const idlFactory = ({ IDL }) => {
   const _CaffeineStorageRefillResult = IDL.Record({
     'success' : IDL.Opt(IDL.Bool),
     'topped_up_amount' : IDL.Opt(IDL.Nat),
+  });
+  const Category = IDL.Variant({
+    'bakedGoods' : IDL.Null,
+    'seafood' : IDL.Null,
+    'nuts' : IDL.Null,
+    'fruits' : IDL.Null,
+    'beverages' : IDL.Null,
+    'vegetables' : IDL.Null,
+    'dairy' : IDL.Null,
   });
   const ExternalBlob = IDL.Vec(IDL.Nat8);
   const ProductId = IDL.Nat;
@@ -238,7 +256,7 @@ export const idlFactory = ({ IDL }) => {
     'description' : IDL.Text,
     'seller' : IDL.Principal,
     'stock' : IDL.Nat,
-    'category' : IDL.Text,
+    'category' : Category,
     'price' : IDL.Nat,
   });
   const UserRole = IDL.Variant({ 'seller' : IDL.Null, 'buyer' : IDL.Null });
@@ -303,7 +321,7 @@ export const idlFactory = ({ IDL }) => {
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
     'addProduct' : IDL.Func(
-        [IDL.Text, IDL.Text, IDL.Nat, IDL.Text, ExternalBlob, IDL.Nat],
+        [IDL.Text, IDL.Text, IDL.Nat, Category, ExternalBlob, IDL.Nat],
         [ProductId],
         [],
       ),
@@ -327,7 +345,7 @@ export const idlFactory = ({ IDL }) => {
     'getOrder' : IDL.Func([OrderId], [IDL.Opt(Order)], ['query']),
     'getProduct' : IDL.Func([ProductId], [IDL.Opt(Product)], ['query']),
     'getProductsByCategory' : IDL.Func(
-        [IDL.Text],
+        [Category],
         [IDL.Vec(Product)],
         ['query'],
       ),
@@ -356,7 +374,7 @@ export const idlFactory = ({ IDL }) => {
           IDL.Text,
           IDL.Text,
           IDL.Nat,
-          IDL.Text,
+          Category,
           ExternalBlob,
           IDL.Nat,
         ],

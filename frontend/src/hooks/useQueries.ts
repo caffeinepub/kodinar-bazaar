@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
 import type { UserProfile, Product, ProductId, CartItem, Order, OrderId, ShoppingItem, StripeConfiguration, StripeSessionStatus } from '../backend';
-import { ExternalBlob } from '../backend';
+import { Category, ExternalBlob } from '../backend';
 
 // ── User Profile ──────────────────────────────────────────────────────────────
 
@@ -90,7 +90,7 @@ export function useAddProduct() {
       name: string;
       description: string;
       price: bigint;
-      category: string;
+      category: Category;
       blob: ExternalBlob;
       stock: bigint;
     }) => {
@@ -121,7 +121,7 @@ export function useUpdateProduct() {
       name: string;
       description: string;
       price: bigint;
-      category: string;
+      category: Category;
       blob: ExternalBlob;
       stock: bigint;
     }) => {

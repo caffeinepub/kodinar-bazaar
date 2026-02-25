@@ -11,27 +11,25 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
-import { ExternalBlob } from '../backend';
+import { Category, ExternalBlob } from '../backend';
 import { Upload, Loader2, ImageIcon } from 'lucide-react';
 
-const CATEGORIES = [
-  'Vegetables & Fruits',
-  'Groceries',
-  'Dairy & Eggs',
-  'Clothing',
-  'Electronics',
-  'Home & Kitchen',
-  'Handicrafts',
-  'Medicines',
-  'Stationery',
-  'Other',
+// Map Category enum values to display labels
+export const CATEGORY_OPTIONS: { value: Category; label: string }[] = [
+  { value: Category.fruits, label: 'Fruits' },
+  { value: Category.vegetables, label: 'Vegetables' },
+  { value: Category.bakedGoods, label: 'Baked Goods' },
+  { value: Category.dairy, label: 'Dairy' },
+  { value: Category.nuts, label: 'Nuts' },
+  { value: Category.beverages, label: 'Beverages' },
+  { value: Category.seafood, label: 'Sea Foods' },
 ];
 
 export interface ProductFormData {
   name: string;
   description: string;
   price: bigint;
-  category: string;
+  category: Category;
   blob: ExternalBlob;
   stock: bigint;
 }
@@ -58,7 +56,9 @@ export default function ProductForm({
   const [name, setName] = useState(initialValues?.name || '');
   const [description, setDescription] = useState(initialValues?.description || '');
   const [price, setPrice] = useState(initialValues?.price || '');
-  const [category, setCategory] = useState(initialValues?.category || '');
+  const [category, setCategory] = useState<Category | ''>(
+    (initialValues?.category as Category) || ''
+  );
   const [stock, setStock] = useState(initialValues?.stock || '');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -84,6 +84,11 @@ export default function ProductForm({
       return;
     }
 
+    if (!category) {
+      setError('Please select a category');
+      return;
+    }
+
     try {
       let blob: ExternalBlob;
       if (imageFile) {
@@ -99,7 +104,7 @@ export default function ProductForm({
         name,
         description,
         price: BigInt(Math.round(parseFloat(price))),
-        category,
+        category: category as Category,
         blob,
         stock: BigInt(parseInt(stock)),
       });
@@ -167,13 +172,15 @@ export default function ProductForm({
 
         <div className="space-y-1.5">
           <Label htmlFor="prod-category" className="font-body font-medium">Category</Label>
-          <Select value={category} onValueChange={setCategory} required>
+          <Select value={category} onValueChange={(val) => setCategory(val as Category)} required>
             <SelectTrigger className="font-body">
               <SelectValue placeholder="Select category" />
             </SelectTrigger>
             <SelectContent>
-              {CATEGORIES.map((cat) => (
-                <SelectItem key={cat} value={cat} className="font-body">{cat}</SelectItem>
+              {CATEGORY_OPTIONS.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value} className="font-body">
+                  {opt.label}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>

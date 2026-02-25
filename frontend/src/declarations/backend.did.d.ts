@@ -11,6 +11,13 @@ import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
 export interface CartItem { 'productId' : ProductId, 'quantity' : bigint }
+export type Category = { 'bakedGoods' : null } |
+  { 'seafood' : null } |
+  { 'nuts' : null } |
+  { 'fruits' : null } |
+  { 'beverages' : null } |
+  { 'vegetables' : null } |
+  { 'dairy' : null };
 export type ExternalBlob = Uint8Array;
 export interface Order {
   'id' : OrderId,
@@ -33,7 +40,7 @@ export interface Product {
   'description' : string,
   'seller' : Principal,
   'stock' : bigint,
-  'category' : string,
+  'category' : Category,
   'price' : bigint,
 }
 export type ProductId = bigint;
@@ -107,7 +114,7 @@ export interface _SERVICE {
   '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'addProduct' : ActorMethod<
-    [string, string, bigint, string, ExternalBlob, bigint],
+    [string, string, bigint, Category, ExternalBlob, bigint],
     ProductId
   >,
   'addToCart' : ActorMethod<[ProductId, bigint], undefined>,
@@ -128,7 +135,7 @@ export interface _SERVICE {
   'getMyProducts' : ActorMethod<[], Array<Product>>,
   'getOrder' : ActorMethod<[OrderId], [] | [Order]>,
   'getProduct' : ActorMethod<[ProductId], [] | [Product]>,
-  'getProductsByCategory' : ActorMethod<[string], Array<Product>>,
+  'getProductsByCategory' : ActorMethod<[Category], Array<Product>>,
   'getStripeSessionStatus' : ActorMethod<[string], StripeSessionStatus>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
@@ -141,7 +148,7 @@ export interface _SERVICE {
   'transform' : ActorMethod<[TransformationInput], TransformationOutput>,
   'updatePaymentStatus' : ActorMethod<[OrderId, OrderStatus], undefined>,
   'updateProduct' : ActorMethod<
-    [ProductId, string, string, bigint, string, ExternalBlob, bigint],
+    [ProductId, string, string, bigint, Category, ExternalBlob, bigint],
     undefined
   >,
 }

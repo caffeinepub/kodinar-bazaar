@@ -4,13 +4,27 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, Package, Loader2 } from 'lucide-react';
-import type { Product } from '../backend';
+import { Category, type Product } from '../backend';
 import { useAddToCart } from '../hooks/useQueries';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { toast } from 'sonner';
 
 interface ProductCardProps {
   product: Product;
+}
+
+export const CATEGORY_LABELS: Record<string, string> = {
+  [Category.fruits]: 'Fruits',
+  [Category.vegetables]: 'Vegetables',
+  [Category.bakedGoods]: 'Baked Goods',
+  [Category.dairy]: 'Dairy',
+  [Category.nuts]: 'Nuts',
+  [Category.beverages]: 'Beverages',
+  [Category.seafood]: 'Sea Foods',
+};
+
+export function getCategoryLabel(category: string): string {
+  return CATEGORY_LABELS[category] ?? category;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
@@ -61,7 +75,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
         <Badge className="absolute top-2 left-2 bg-terracotta text-white text-xs font-body border-0 shadow-sm">
-          {product.category}
+          {getCategoryLabel(product.category as string)}
         </Badge>
       </div>
 

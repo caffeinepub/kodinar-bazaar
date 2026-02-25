@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
+  "projectStateVersion": 7,
   "summary": "E-commerce app specifically for the small town of Kodinar. The app will serve local buyers and sellers within the city.",
   "architectural_notes": [
     "Target audience: residents and local businesses in Kodinar, a small town"
@@ -71,6 +71,14 @@
         "REQ-10"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-sea-foods-to-the-category-filter-list-on-the-productspage-sidebar-and-to-the-category-dropdown-in-the-productform-used-by-the-seller-dashboard-so-sellers-can-select-it-when-listing-products-and-buyers-can-filter-by-it",
+      "title": "Add 'Sea Foods' to the category filter list on the ProductsPage sidebar and to the category dropdown in the ProductForm used by the Seller Dashboard, so sellers can select it when listing products and buyers can filter by it.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -99,6 +107,20 @@
       "summary": "Add Stripe payment integration to the backend: store a Stripe payment intent ID and payment status (pending, paid, failed) on each order record. Expose a backend function to create a payment intent for a given order total and return the client secret, and another to confirm/update payment status after successful payment.",
       "reqIds": [
         "REQ-9"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add 'Sea Foods' as a product category option in the app",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add 'Sea Foods' as a valid product category option in the backend category list so that sellers can assign it to product listings.",
+      "reqIds": [
+        "REQ-11"
       ],
       "status": "pending"
     }

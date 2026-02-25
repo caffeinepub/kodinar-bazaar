@@ -32,12 +32,22 @@ actor {
     role : UserRole;
   };
 
+  public type Category = {
+    #fruits;
+    #vegetables;
+    #bakedGoods;
+    #dairy;
+    #nuts;
+    #beverages;
+    #seafood;
+  };
+
   type Product = {
     id : ProductId;
     name : Text;
     description : Text;
     price : Nat;
-    category : Text;
+    category : Category;
     blob : Storage.ExternalBlob;
     seller : Principal;
     stock : Nat;
@@ -137,7 +147,7 @@ actor {
     name : Text,
     description : Text,
     price : Nat,
-    category : Text,
+    category : Category,
     blob : Storage.ExternalBlob,
     stock : Nat,
   ) : async ProductId {
@@ -175,7 +185,7 @@ actor {
     name : Text,
     description : Text,
     price : Nat,
-    category : Text,
+    category : Category,
     blob : Storage.ExternalBlob,
     stock : Nat,
   ) : async () {
@@ -250,7 +260,7 @@ actor {
     products.values().toArray();
   };
 
-  public query func getProductsByCategory(category : Text) : async [Product] {
+  public query func getProductsByCategory(category : Category) : async [Product] {
     products.values().toArray().filter(func(p : Product) : Bool { p.category == category });
   };
 

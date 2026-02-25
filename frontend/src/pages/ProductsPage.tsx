@@ -7,19 +7,18 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Search, SlidersHorizontal, X, Package } from 'lucide-react';
+import { Category } from '../backend';
+import { CATEGORY_LABELS } from '../components/ProductCard';
 
-const ALL_CATEGORIES = [
-  'All',
-  'Vegetables & Fruits',
-  'Groceries',
-  'Dairy & Eggs',
-  'Clothing',
-  'Electronics',
-  'Home & Kitchen',
-  'Handicrafts',
-  'Medicines',
-  'Stationery',
-  'Other',
+const ALL_CATEGORY_FILTERS: { value: string; label: string }[] = [
+  { value: 'All', label: 'All' },
+  { value: Category.fruits, label: 'Fruits' },
+  { value: Category.vegetables, label: 'Vegetables' },
+  { value: Category.bakedGoods, label: 'Baked Goods' },
+  { value: Category.dairy, label: 'Dairy' },
+  { value: Category.nuts, label: 'Nuts' },
+  { value: Category.beverages, label: 'Beverages' },
+  { value: Category.seafood, label: 'Sea Foods' },
 ];
 
 export default function ProductsPage() {
@@ -37,10 +36,14 @@ export default function ProductsPage() {
         !searchQuery ||
         p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.description.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesCategory = selectedCategory === 'All' || p.category === selectedCategory;
+      const matchesCategory =
+        selectedCategory === 'All' || (p.category as string) === selectedCategory;
       return matchesSearch && matchesCategory;
     });
   }, [products, searchQuery, selectedCategory]);
+
+  const selectedLabel =
+    ALL_CATEGORY_FILTERS.find((f) => f.value === selectedCategory)?.label ?? selectedCategory;
 
   return (
     <main className="min-h-screen bg-background">
@@ -50,7 +53,7 @@ export default function ProductsPage() {
           <h1 className="font-display text-2xl font-bold text-deep-brown mb-4">
             Browse Products
             {selectedCategory !== 'All' && (
-              <span className="text-saffron"> — {selectedCategory}</span>
+              <span className="text-saffron"> — {selectedLabel}</span>
             )}
           </h1>
 
@@ -94,20 +97,20 @@ export default function ProductsPage() {
                 Categories
               </h3>
               <div className="space-y-1">
-                {ALL_CATEGORIES.map((cat) => (
+                {ALL_CATEGORY_FILTERS.map((cat) => (
                   <button
-                    key={cat}
+                    key={cat.value}
                     onClick={() => {
-                      setSelectedCategory(cat);
+                      setSelectedCategory(cat.value);
                       setShowFilters(false);
                     }}
                     className={`w-full text-left px-3 py-2 rounded-lg text-sm font-body transition-all ${
-                      selectedCategory === cat
+                      selectedCategory === cat.value
                         ? 'bg-saffron text-white font-semibold'
                         : 'text-deep-brown hover:bg-saffron/10'
                     }`}
                   >
-                    {cat}
+                    {cat.label}
                   </button>
                 ))}
               </div>
@@ -125,7 +128,7 @@ export default function ProductsPage() {
                     className="font-body cursor-pointer bg-saffron/10 text-saffron border-saffron/20"
                     onClick={() => setSelectedCategory('All')}
                   >
-                    {selectedCategory} <X className="w-3 h-3 ml-1" />
+                    {selectedLabel} <X className="w-3 h-3 ml-1" />
                   </Badge>
                 )}
                 {searchQuery && (

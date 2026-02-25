@@ -34,6 +34,7 @@ import {
 import { Plus, Edit, Trash2, PackageX, Store, Package, Loader2 } from 'lucide-react';
 import { UserRole, type Product } from '../backend';
 import { toast } from 'sonner';
+import { getCategoryLabel } from '../components/ProductCard';
 
 export default function SellerDashboardPage() {
   const { identity } = useInternetIdentity();
@@ -214,7 +215,7 @@ export default function SellerDashboardPage() {
                         </TableCell>
                         <TableCell>
                           <Badge className="bg-terracotta/10 text-terracotta border-terracotta/20 font-body text-xs">
-                            {product.category}
+                            {getCategoryLabel(product.category as string)}
                           </Badge>
                         </TableCell>
                         <TableCell className="font-body font-semibold text-saffron">
@@ -312,7 +313,7 @@ export default function SellerDashboardPage() {
                 name: editingProduct.name,
                 description: editingProduct.description,
                 price: Number(editingProduct.price).toString(),
-                category: editingProduct.category,
+                category: editingProduct.category as string,
                 stock: Number(editingProduct.stock).toString(),
               }}
               onSubmit={handleUpdateProduct}
